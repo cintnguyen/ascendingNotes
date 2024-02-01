@@ -1,4 +1,8 @@
 const express = require('express');
+const cors = require('cors');
+
+// Frotnend is on port 5173, requesting for data from a different backend port 3000, CORS allows for the data to be fetched from a different server
+
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 
@@ -6,12 +10,32 @@ const app = express();
 const secretKey = 'your-secret-key'; // Replace with your secret key
 
 app.use(bodyParser.json());
+app.use(cors())
 
 // Sample user data (for demonstration purposes only)
 const users = [
   { id: 1, username: 'user1', password: 'password1' },
   { id: 2, username: 'user2', password: 'password2' }
 ];
+
+const notes = [
+  { id: 1, username: 'user1', content: "hello", important: true, deleted: false},
+  { id: 2, username: 'user2', content: "hi", important: true, deleted: false},
+]
+
+app.get('/notes', /* authenticateToken, */ (req, res) => {
+  res.json(notes);
+});
+
+app.post('/notes', (req, res) => {
+  const { content, important } = req.body;
+  console.log("note and important", content, important)
+  const newNote = {id:notes.length+1, username:"user3", content: content, important: important, deleted: false}
+  notes.push(newNote)
+  res.json({status:"ok", newNote});
+});
+
+
 
 // Authorization: Bearer eyJhbG
 // Middleware function to authenticate JWT token
