@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import { getNotes, postNote } from './services/notes.js'
+import { getNotes, postNote, deleteNote, updateNote } from './services/notes.js'
 
 function App() {
   const [notes, setNotes] = useState([]) // state are things you can see on the page
@@ -46,6 +46,25 @@ function App() {
     }
   };
 
+  const handleDelete = async (id) => {
+    try {
+     await deleteNote(id)
+      // Refresh notes after deleting one
+      notes.splice((id - 1),1)
+      setNotes([...notes])
+    } catch (error) {
+      console.error('Error deleting note:', error);
+    }
+  };
+
+  const updateNote = async () => {
+    try {
+      await updateNote()
+
+     } catch (error) {
+     }
+  }
+
 
   return (
     <div>
@@ -58,7 +77,12 @@ function App() {
       <button onClick={handleSubmit}>Send</button>
 
       <ul>
-        {notes.map((note) => <li key={note.id} >{note.content}</li>)}
+        {notes.map((note) => 
+        <li key={note.id} >
+          {note.content}
+          <button onClick={() => handleDelete(note.id)}>Delete</button>
+        </li>
+        )}
       </ul>
     </div>
   )

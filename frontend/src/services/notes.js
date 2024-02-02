@@ -23,4 +23,20 @@ const postNote = async (content) => {
     return result.newNote
 }
 
-export {getNotes, postNote}
+const deleteNote = async (id) => {
+    const requestOptions = {
+        method: 'DELETE',
+    };
+    const response = await fetch(`${baseURL}/note/${id}`, requestOptions);
+    return true
+}
+
+const updateNote = async (id) => {
+    const requestOptions = {
+        method: 'UPDATE',
+    };
+    const response = await fetch(`${baseURL}/note/${id}`, requestOptions);
+    return true
+}
+
+export {getNotes, postNote, deleteNote, updateNote}

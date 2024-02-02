@@ -35,6 +35,18 @@ app.post('/notes', (req, res) => {
   res.json({status:"ok", newNote});
 });
 
+app.delete('/note/:id', (req, res) => {
+  // console.log(req.params.id)
+  // console.log(notes[(req.params.id)-1])
+  console.log(notes)
+  const noteDeleted = notes[(req.params.id)-1];
+  console.log("DELTED NOTE:", noteDeleted)
+  notes.splice((req.params.id)-1,1)
+  // notes.deleteOne({id: .id})
+  console.log("AFTER NOTES:", notes)
+  res.json({status: "Note deleted!", noteDeleted })
+})
+
 
 
 // Authorization: Bearer eyJhbG
