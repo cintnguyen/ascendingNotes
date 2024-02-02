@@ -31,9 +31,12 @@ const deleteNote = async (id) => {
     return true
 }
 
-const updateNote = async (id) => {
+const updateNote = async (note) => {
     const requestOptions = {
         method: 'UPDATE',
+        body: JSON.stringify({ 
+            important:!note.important,
+         })
     };
     const response = await fetch(`${baseURL}/note/${id}`, requestOptions);
     return true

@@ -3,6 +3,9 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { getNotes, postNote, deleteNote, updateNote } from './services/notes.js'
+import starOff from './assets/starOff.png';
+import starOn from './assets/starOn.svg';
+
 
 function App() {
   const [notes, setNotes] = useState([]) // state are things you can see on the page
@@ -57,9 +60,11 @@ function App() {
     }
   };
 
-  const handleUpdate = async () => {
+  const handleUpdate = async (note) => {
     try {
-      await updateNote()
+      await updateNote(note)
+      note.important = !note.important
+      setNotes([...notes])
 
     } catch (error) {
     }
@@ -83,8 +88,9 @@ function App() {
             <button onClick={() => handleDelete(note.id)}
             >Delete</button>
 
-            <button onClick={() => handleUpdate(note.id)}
-            >Star Important</button>
+            <button onClick={() => handleUpdate(note)}
+            > { note.important ? <img className="star" src={starOn} alt="Star On" /> : <img className="star" src={starOff} alt="Star Off" />}</button>
+           
           </li>
         )}
       </ul>

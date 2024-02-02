@@ -19,7 +19,7 @@ const users = [
 ];
 
 const notes = [
-  { id: 1, username: 'user1', content: "hello", important: true, deleted: false},
+  { id: 1, username: 'user1', content: "hello", important: false, deleted: false},
   { id: 2, username: 'user2', content: "hi", important: true, deleted: false},
 ]
 
@@ -45,6 +45,15 @@ app.delete('/note/:id', (req, res) => {
   // notes.deleteOne({id: .id})
   console.log("AFTER NOTES:", notes)
   res.json({status: "Note deleted!", noteDeleted })
+})
+
+app.put( '/note/:id', (req,res) => {
+  console.log(notes[(req.params.id)-1].important)
+  const note = notes[(req.params.id)-1]
+  note.important = req.body.important
+  console.log(notes)
+  res.json({status: "It hit the endpoint" })
+
 })
 
 
