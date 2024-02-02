@@ -39,7 +39,7 @@ function App() {
       const newNote = await postNote(content)
 
       console.log("NOTES AFTER POSTNOTES:", notes)
-      setNotes([...notes,newNote]) //react needs to recognize new array, use spread operator to indicate this and react will rerender 123 --> 456 new address
+      setNotes([...notes, newNote]) //react needs to recognize new array, use spread operator to indicate this and react will rerender 123 --> 456 new address
 
     } catch (error) {
       console.error('Error:', error);
@@ -48,21 +48,21 @@ function App() {
 
   const handleDelete = async (id) => {
     try {
-     await deleteNote(id)
+      await deleteNote(id)
       // Refresh notes after deleting one
-      notes.splice((id - 1),1)
+      notes.splice((id - 1), 1)
       setNotes([...notes])
     } catch (error) {
       console.error('Error deleting note:', error);
     }
   };
 
-  const updateNote = async () => {
+  const handleUpdate = async () => {
     try {
       await updateNote()
 
-     } catch (error) {
-     }
+    } catch (error) {
+    }
   }
 
 
@@ -77,11 +77,15 @@ function App() {
       <button onClick={handleSubmit}>Send</button>
 
       <ul>
-        {notes.map((note) => 
-        <li key={note.id} >
-          {note.content}
-          <button onClick={() => handleDelete(note.id)}>Delete</button>
-        </li>
+        {notes.map((note) =>
+          <li key={note.id} >
+            {note.content}
+            <button onClick={() => handleDelete(note.id)}
+            >Delete</button>
+
+            <button onClick={() => handleUpdate(note.id)}
+            >Star Important</button>
+          </li>
         )}
       </ul>
     </div>
