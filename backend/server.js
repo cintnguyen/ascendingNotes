@@ -1,16 +1,19 @@
 const express = require('express');
-const cors = require('cors');
-
-// Frotnend is on port 5173, requesting for data from a different backend port 3000, CORS allows for the data to be fetched from a different server
+const cors = require('cors'); // Frontend is on port 5173, requesting for data from a different backend port 3000, CORS allows for the data to be fetched from a different server
 
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
+
+const mongoose = require("mongoose");
+const connectDB = require("./config/database");
 
 const app = express();
 const secretKey = 'your-secret-key'; // Replace with your secret key
 
 app.use(bodyParser.json());
 app.use(cors())
+
+// connectDB()
 
 // Sample user data (for demonstration purposes only)
 const users = [
@@ -48,11 +51,13 @@ app.delete('/note/:id', (req, res) => {
 })
 
 app.put( '/note/:id', (req,res) => {
-  console.log(notes[(req.params.id)-1].important)
+  // console.log(notes[(req.params.id)-1].important)
   const note = notes[(req.params.id)-1]
+  console.log("BODY", req.body)
   note.important = req.body.important
-  console.log(notes)
-  res.json({status: "It hit the endpoint" })
+  console.log("NOTE", note)
+  console.log("ALL NOTES", notes)
+  res.json({status: "It hit the endpoint"})
 
 })
 

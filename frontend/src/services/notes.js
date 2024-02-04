@@ -14,7 +14,7 @@ const postNote = async (content) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
             content:content,
-            important:"true",
+            important: false,
          })
     };
     const response = await fetch(`${baseURL}/notes`, requestOptions);
@@ -33,13 +33,17 @@ const deleteNote = async (id) => {
 
 const updateNote = async (note) => {
     const requestOptions = {
-        method: 'UPDATE',
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
-            important:!note.important,
+            important:note.important, 
+            foo: "bar",
          })
     };
-    const response = await fetch(`${baseURL}/note/${id}`, requestOptions);
-    return true
+    console.log("BODY", requestOptions.body)
+    const response = await fetch(`${baseURL}/note/${note.id}`, requestOptions);
+    console.log("RESPONSE HERE", response)
+    return "Updated!"
 }
 
 export {getNotes, postNote, deleteNote, updateNote}

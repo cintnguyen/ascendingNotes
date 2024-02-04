@@ -62,11 +62,14 @@ function App() {
 
   const handleUpdate = async (note) => {
     try {
-      await updateNote(note)
+      console.log("HEREEEE", note, typeof note.important)
       note.important = !note.important
+      await updateNote(note)
+      console.log("AFTER THE UPDATE, should be true", note)
       setNotes([...notes])
 
     } catch (error) {
+      console.log(error)
     }
   }
 
@@ -89,7 +92,7 @@ function App() {
             >Delete</button>
 
             <button onClick={() => handleUpdate(note)}
-            > { note.important ? <img className="star" src={starOn} alt="Star On" /> : <img className="star" src={starOff} alt="Star Off" />}</button>
+            > { note.important ? (<img className="star" src={starOn} alt="Star On" />) : (<img className="star" src={starOff} alt="Star Off" />)}</button>
            
           </li>
         )}
