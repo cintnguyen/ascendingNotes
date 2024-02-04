@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 
 const mongoose = require("mongoose");
-const connectDB = require("./config/database");
+// const connectDB = require("./config/database");
 
 const app = express();
 const secretKey = 'your-secret-key'; // Replace with your secret key
